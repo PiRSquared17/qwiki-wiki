@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/59/trunk/src/org/json
+END
+JSONString.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/59/trunk/src/org/json/JSONString.java
+END
+JSONObject.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/59/trunk/src/org/json/JSONObject.java
+END
+JSONTokener.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/59/trunk/src/org/json/JSONTokener.java
+END
+CDL.java
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/59/trunk/src/org/json/CDL.java
+END
+JSONWriter.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/59/trunk/src/org/json/JSONWriter.java
+END
+JSONStringer.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/59/trunk/src/org/json/JSONStringer.java
+END
+JSONException.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/59/trunk/src/org/json/JSONException.java
+END
+JSONArray.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/59/trunk/src/org/json/JSONArray.java
+END

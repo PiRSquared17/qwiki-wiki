@@ -1,0 +1,8 @@
+public void doSomethingInSeparateThread(){
+	SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+		protected Void doInBackground() {
+			return null;
+		}
+	};
+	worker.execute();
+}

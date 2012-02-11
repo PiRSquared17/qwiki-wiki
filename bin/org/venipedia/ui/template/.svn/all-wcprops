@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/59/trunk/src/org/venipedia/ui/template
+END
+NewTemplateFrame.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/57/trunk/src/org/venipedia/ui/template/NewTemplateFrame.java
+END
+TemplateEditor.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/58/trunk/src/org/venipedia/ui/template/TemplateEditor.java
+END
+TemplateSelectionFrame.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/59/trunk/src/org/venipedia/ui/template/TemplateSelectionFrame.java
+END

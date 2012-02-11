@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/59/trunk/src/org/venipedia
+END
+RII.xml
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/16/trunk/src/org/venipedia/RII.xml
+END
+RII.kml
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/16/trunk/src/org/venipedia/RII.kml
+END
+CSVParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/57/trunk/src/org/venipedia/CSVParser.java
+END
+WaitingWindow.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/3/trunk/src/org/venipedia/WaitingWindow.java
+END

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/59/trunk/src/org/venipedia/dbcore/jdbc
+END
+UploadManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/59/trunk/src/org/venipedia/dbcore/jdbc/UploadManager.java
+END
+DataPair.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/57/trunk/src/org/venipedia/dbcore/jdbc/DataPair.java
+END
+JdbcDatabase.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/59/trunk/src/org/venipedia/dbcore/jdbc/JdbcDatabase.java
+END
+JdbcTable.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/57/trunk/src/org/venipedia/dbcore/jdbc/JdbcTable.java
+END
+MySqlFieldReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/51/trunk/src/org/venipedia/dbcore/jdbc/MySqlFieldReader.java
+END
+JdbcTemplate.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/58/trunk/src/org/venipedia/dbcore/jdbc/JdbcTemplate.java
+END
