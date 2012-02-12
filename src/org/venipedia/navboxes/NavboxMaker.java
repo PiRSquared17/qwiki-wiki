@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 
-import org.venipedia.importer.FileTypeFilter;
 
 public class NavboxMaker extends JFrame {
 	private static final long serialVersionUID = 5920041528638416260L;
