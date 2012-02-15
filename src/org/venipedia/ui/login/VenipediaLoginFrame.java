@@ -70,6 +70,11 @@ public class VenipediaLoginFrame extends JInternalFrame {
 		getContentPane().add(lblPassword, gbc_lblPassword);
 		
 		passwordField = new JPasswordField();
+		passwordField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				logIn();
+			}
+		});
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.gridwidth = 2;
 		gbc_passwordField.insets = new Insets(0, 0, 5, 0);
@@ -124,7 +129,6 @@ public class VenipediaLoginFrame extends JInternalFrame {
 		String password = new String(getPasswordField().getPassword());
 		VenipediaCredentials vCreds =new VenipediaCredentials(username, password); 
 		parent.setvCred(vCreds);
-		parent.setStatus("Logged in to Venipedia as "+username+".");
 		closeOut();
 	}
 	

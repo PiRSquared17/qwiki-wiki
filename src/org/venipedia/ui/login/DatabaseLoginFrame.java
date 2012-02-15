@@ -14,9 +14,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import org.venipedia.QwikiWiki;
-import org.venipedia.credentials.BluehostCredentials;
+import org.venipedia.credentials.DatabaseCredentials;
 
-public class BluehostLoginFrame extends JInternalFrame {
+public class DatabaseLoginFrame extends JInternalFrame {
 	private JTextField txtUsername;
 	private JPasswordField passwordField;
 	
@@ -26,10 +26,10 @@ public class BluehostLoginFrame extends JInternalFrame {
 	 * Create the frame.
 	 * @param qwikiWiki 
 	 */
-	public BluehostLoginFrame(QwikiWiki qwikiWiki) {
+	public DatabaseLoginFrame(QwikiWiki qwikiWiki) {
 		parent = qwikiWiki;
 		setTitle("Log in to Bluehost");
-		setFrameIcon(new ImageIcon(BluehostLoginFrame.class.getResource("/icons/monitor.png")));
+		setFrameIcon(new ImageIcon(DatabaseLoginFrame.class.getResource("/icons/monitor.png")));
 		setBounds(100, 100, 450, 300);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
@@ -80,7 +80,7 @@ public class BluehostLoginFrame extends JInternalFrame {
 				logIn();
 			}
 		});
-		btnLogIn.setIcon(new ImageIcon(BluehostLoginFrame.class.getResource("/icons/thumb-up.png")));
+		btnLogIn.setIcon(new ImageIcon(DatabaseLoginFrame.class.getResource("/icons/thumb-up.png")));
 		GridBagConstraints gbc_btnLogIn = new GridBagConstraints();
 		gbc_btnLogIn.gridwidth = 2;
 		gbc_btnLogIn.insets = new Insets(0, 0, 0, 5);
@@ -94,7 +94,7 @@ public class BluehostLoginFrame extends JInternalFrame {
 				cancel();
 			}
 		});
-		btnCancel.setIcon(new ImageIcon(BluehostLoginFrame.class.getResource("/icons/cross.png")));
+		btnCancel.setIcon(new ImageIcon(DatabaseLoginFrame.class.getResource("/icons/cross.png")));
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.gridx = 2;
 		gbc_btnCancel.gridy = 2;
@@ -118,9 +118,9 @@ public class BluehostLoginFrame extends JInternalFrame {
 	protected void logIn() {
 		String username = getTxtUsername().getText();
 		String password = new String(getPasswordField().getPassword());
-		BluehostCredentials bCreds =new BluehostCredentials(username, password); 
+		DatabaseCredentials bCreds =new DatabaseCredentials(username, password); 
 		parent.setbCred(bCreds);
-		parent.setStatus("Logged in to Bluehost as "+username+".");
+		parent.setStatus("Logged in to Bluehost databases as "+username+".");
 		closeOut();
 	}
 	

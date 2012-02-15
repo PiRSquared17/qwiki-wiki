@@ -1,10 +1,10 @@
 package org.venipedia.credentials;
 
-public class BluehostCredentials {
+public class DatabaseCredentials {
 	private String username;
 	private String password;
 	
-	public BluehostCredentials(String username, String password) {
+	public DatabaseCredentials(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}

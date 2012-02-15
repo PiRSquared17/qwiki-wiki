@@ -17,13 +17,16 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JProgressBar;
 import javax.swing.JSeparator;
 
-import org.venipedia.credentials.BluehostCredentials;
+import org.venipedia.bot.VeniBot;
+import org.venipedia.credentials.DatabaseCredentials;
 import org.venipedia.credentials.VenipediaCredentials;
-import org.venipedia.ui.login.BluehostLoginFrame;
+import org.venipedia.ui.ListPages;
+import org.venipedia.ui.login.DatabaseLoginFrame;
 import org.venipedia.ui.login.VenipediaLoginFrame;
 
 public class QwikiWiki {
@@ -32,8 +35,9 @@ public class QwikiWiki {
 	private JProgressBar progressBar;
 	private JDesktopPane desktopPane;
 
-	private VenipediaCredentials vCred;
-	private BluehostCredentials bCred;
+	private DatabaseCredentials bCred;
+	
+	private VeniBot veniBot;
 
 	/**
 	 * Launch the application.
@@ -56,6 +60,7 @@ public class QwikiWiki {
 	 */
 	public QwikiWiki() {
 		initialize();
+		veniBot = new VeniBot(this);
 	}
 
 	/**
@@ -162,7 +167,11 @@ public class QwikiWiki {
 		mnView.add(mntmVenipedia);
 		
 		JMenuItem mntmListPages = new JMenuItem("List pages");
-		mntmListPages.setEnabled(false);
+		mntmListPages.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				listPages();
+			}
+		});
 		mntmListPages.setIcon(new ImageIcon(QwikiWiki.class.getResource("/icons/edit-list.png")));
 		mnView.add(mntmListPages);
 		
@@ -195,12 +204,23 @@ public class QwikiWiki {
 	}
 	
 
+	private void listPages() {
+		ListPages lp = new ListPages(this);
+		showWindow(lp);
+		lp.setVisible(false);
+	}
+
+	public VeniBot getVeniBot() {
+		return veniBot;
+	}
+
 	protected void bluehostLogIn() {
-		showWindow(new BluehostLoginFrame(this));
+		showWindow(new DatabaseLoginFrame(this));
 	}
 
 	public void setStatus(String s){
 		getProgressBar().setString(s);
+		System.out.println(s);
 	}
 	
 	protected void venipediaLogIn() {
@@ -213,7 +233,9 @@ public class QwikiWiki {
 	}
 
 	protected void exit() {
-		System.exit(0);
+		int q = JOptionPane.showConfirmDialog(getDesktopPane(), "Are you sure you want to exit?", "Confirm exit", JOptionPane.YES_NO_OPTION);
+		if(q==JOptionPane.OK_OPTION)
+			System.exit(0);
 	}
 
 	private static void addPopup(Component component, final JPopupMenu popup) {
@@ -241,18 +263,22 @@ public class QwikiWiki {
 	}
 
 	public VenipediaCredentials getvCred() {
-		return vCred;
+		return veniBot.getCreds();
 	}
 
 	public void setvCred(VenipediaCredentials vCred) {
-		this.vCred = vCred;
+		veniBot.setCreds(vCred);
 	}
 
-	public BluehostCredentials getbCred() {
+	public DatabaseCredentials getbCred() {
 		return bCred;
 	}
 
-	public void setbCred(BluehostCredentials bCred) {
+	public void setbCred(DatabaseCredentials bCred) {
 		this.bCred = bCred;
+	}
+	
+	public void setFrozen(boolean b){
+		getProgressBar().setIndeterminate(b);
 	}
 }
