@@ -17,6 +17,7 @@ import net.sourceforge.jwbf.mediawiki.actions.util.VersionException;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 
 import org.venipedia.QwikiWiki;
+import org.venipedia.credentials.DatabaseCredentials;
 import org.venipedia.credentials.VenipediaCredentials;
 import org.venipedia.entities.Page;
 
@@ -32,6 +33,7 @@ public class VeniBot {
 
 	public VeniBot(QwikiWiki parent) {
 		this.parent = parent;
+		creds = new VenipediaCredentials("","");
 	}
 
 	/** Reinitialize the connection to Venipedia.org **/
@@ -108,6 +110,7 @@ public class VeniBot {
 	public void setCreds(VenipediaCredentials creds) {
 		this.creds = creds;
 		connect();
+		parent.saveCreds();
 	}
 
 	public void deletePages(Object[] selectedValues) {

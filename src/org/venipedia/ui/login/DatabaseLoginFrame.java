@@ -120,7 +120,6 @@ public class DatabaseLoginFrame extends JInternalFrame {
 		String password = new String(getPasswordField().getPassword());
 		DatabaseCredentials bCreds =new DatabaseCredentials(username, password); 
 		parent.setbCred(bCreds);
-		parent.setStatus("Logged in to Bluehost databases as "+username+".");
 		closeOut();
 	}
 	
