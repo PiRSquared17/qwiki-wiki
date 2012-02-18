@@ -51,7 +51,8 @@ public class MassPageCreation extends JInternalFrame {
 		gbc_comboBox.gridy = 0;
 		panel.add(comboBox, gbc_comboBox);
 		
-		JButton btnEdit = new JButton("Edit...");
+		JButton btnEdit = new JButton("");
+		btnEdit.setIcon(new ImageIcon(MassPageCreation.class.getResource("/icons/pencil.png")));
 		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
 		gbc_btnEdit.insets = new Insets(0, 0, 5, 0);
 		gbc_btnEdit.gridx = 2;
@@ -59,11 +60,12 @@ public class MassPageCreation extends JInternalFrame {
 		panel.add(btnEdit, gbc_btnEdit);
 		
 		JButton btnNext1 = new JButton("Next");
+		btnNext1.setIcon(new ImageIcon(MassPageCreation.class.getResource("/icons/arrow-curve-000-left.png")));
 		GridBagConstraints gbc_btnNext1 = new GridBagConstraints();
+		gbc_btnNext1.gridwidth = 2;
 		gbc_btnNext1.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNext1.anchor = GridBagConstraints.EAST;
-		gbc_btnNext1.gridwidth = 3;
-		gbc_btnNext1.gridx = 2;
+		gbc_btnNext1.anchor = GridBagConstraints.NORTHEAST;
+		gbc_btnNext1.gridx = 1;
 		gbc_btnNext1.gridy = 1;
 		panel.add(btnNext1, gbc_btnNext1);
 
