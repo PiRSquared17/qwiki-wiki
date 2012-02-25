@@ -86,10 +86,7 @@ public class BlueBot {
 	private void setTableThreaded(TableViewer tv, String db, String tableName){
 		parent.setStatus("Downloading table \""+tableName+"\"...");
 		parent.setFrozen(true);
-		String data = "{\"tableName\":\""+tableName+"\",\"user\":\""+creds.getUsername()+"\",\"pass\":\""+
-				creds.getPassword()+"\",\"db\":\""+db+"\"}";
-		String response = postRequest(BLUE_URL+"/getTable.php",data);
-		DatabaseTable table = new DatabaseTable(response);
+		DatabaseTable table = getTable(db,tableName);
 		tv.setTable(table);
 		parent.setFrozen(false);
 		parent.setStatus("Downloaded table.");
@@ -103,6 +100,16 @@ public class BlueBot {
 			}
 		};
 		worker.execute();
+	}
+	
+	public DatabaseTable getTable(String db, String tableName){
+
+		String data = "{\"tableName\":\""+tableName+"\",\"user\":\""+creds.getUsername()+"\",\"pass\":\""+
+				creds.getPassword()+"\",\"db\":\""+db+"\"}";
+		String response = postRequest(BLUE_URL+"/getTable.php",data);
+		DatabaseTable table = new DatabaseTable(response);
+		
+		return table;
 	}
 
 }

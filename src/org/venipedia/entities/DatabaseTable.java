@@ -39,6 +39,22 @@ public class DatabaseTable implements TableModel {
 		}
 	}
 
+	public int getColumnIndex(String col){
+		int i=0;
+		for(String s:headers){
+			if(col.equals(s))
+				return i;
+			i++;
+		}
+		return -1;
+	}
+	
+	public String getValuetA(int row, String colName){
+		int col = getColumnIndex(colName);
+		if(col<0) return "No data available for \""+colName+"\"";
+		return data[row][col];
+	}
+	
 	@Override
 	public void addTableModelListener(TableModelListener arg0) {
 		// TODO Auto-generated method stub

@@ -27,7 +27,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JProgressBar;
 import javax.swing.JSeparator;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,17 +34,13 @@ import org.venipedia.bot.BlueBot;
 import org.venipedia.bot.VeniBot;
 import org.venipedia.credentials.DatabaseCredentials;
 import org.venipedia.credentials.VenipediaCredentials;
-import org.venipedia.entities.DatabaseTable;
 import org.venipedia.ui.ListPages;
+import org.venipedia.ui.MassPageCreation;
 import org.venipedia.ui.TableViewer;
 import org.venipedia.ui.login.DatabaseLoginFrame;
 import org.venipedia.ui.login.VenipediaLoginFrame;
 
 import com.centerkey.utils.BareBonesBrowserLaunch;
-
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 
 public class QwikiWiki {
 
@@ -177,7 +172,6 @@ public class QwikiWiki {
 
 		JMenuItem mntmPagesFromDatabase = new JMenuItem(
 				"Pages from database table");
-		mntmPagesFromDatabase.setEnabled(false);
 		mntmPagesFromDatabase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				pagesFromDatabaseTable();
@@ -272,22 +266,26 @@ public class QwikiWiki {
 				.getResource("/icons/door-open-out.png")));
 		popupMenu.add(mntmExit);
 						
-								progressBar = new JProgressBar();
-								frmQwikiwiki.getContentPane().add(progressBar, BorderLayout.SOUTH);
-								progressBar.setForeground(new Color(128, 128, 128));
-								progressBar.setBorderPainted(false);
-								progressBar.setBorder(null);
-								progressBar.setBackground(new Color(102, 0, 0));
-								progressBar.setString("");
-								progressBar.setStringPainted(true);
+		progressBar = new JProgressBar();
+		frmQwikiwiki.getContentPane().add(progressBar, BorderLayout.SOUTH);
+		progressBar.setForeground(Color.BLACK);
+		progressBar.setBorderPainted(false);
+		progressBar.setBorder(null);
+		progressBar.setBackground(new Color(102, 0, 0));
+		progressBar.setString("");
+		progressBar.setStringPainted(true);
 	}
 
 	protected void showVenipedia() {
 		BareBonesBrowserLaunch.openURL("http://www.venipedia.org/");
 	}
 
+	public void openUrl(String url){
+		BareBonesBrowserLaunch.openURL(url);
+	}
+	
 	protected void reportBug() {
-		BareBonesBrowserLaunch.openURL("http://code.google.com/p/qwiki-wiki/issues/entry?template=Defect%20report%20from%20user");
+		openUrl("http://code.google.com/p/qwiki-wiki/issues/entry?template=Defect%20report%20from%20user");
 	}
 
 	private void loadCreds() {
@@ -339,7 +337,7 @@ public class QwikiWiki {
 	}
 
 	protected void pagesFromDatabaseTable() {
-		// TODO fill this method!
+		showWindow(new MassPageCreation(this));
 	}
 
 	private void listPages() {
@@ -350,6 +348,10 @@ public class QwikiWiki {
 
 	public VeniBot getVeniBot() {
 		return veniBot;
+	}
+	
+	public BlueBot getBlueBot(){
+		return blueBot;
 	}
 
 	protected void bluehostLogIn() {
@@ -376,7 +378,7 @@ public class QwikiWiki {
 				JOptionPane.YES_NO_OPTION);
 		if (q == JOptionPane.OK_OPTION)
 			System.exit(0);
-	}
+	} 
 
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
@@ -424,5 +426,13 @@ public class QwikiWiki {
 
 	public void setFrozen(boolean b) {
 		getProgressBar().setIndeterminate(b);
+	}
+
+	public void setMaximum(int n) {
+		getProgressBar().setMaximum(n);
+	}
+	
+	public void setProgress(int n){
+		getProgressBar().setValue(n);
 	}
 }

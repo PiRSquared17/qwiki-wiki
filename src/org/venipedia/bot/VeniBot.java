@@ -11,13 +11,15 @@ import javax.swing.SwingWorker;
 import net.sourceforge.jwbf.core.actions.util.ActionException;
 import net.sourceforge.jwbf.core.actions.util.ProcessException;
 import net.sourceforge.jwbf.core.contentRep.Article;
+import net.sourceforge.jwbf.core.contentRep.SimpleArticle;
+import net.sourceforge.jwbf.mediawiki.actions.MediaWiki;
 import net.sourceforge.jwbf.mediawiki.actions.editing.PostDelete;
+import net.sourceforge.jwbf.mediawiki.actions.editing.PostModifyContent;
 import net.sourceforge.jwbf.mediawiki.actions.queries.AllPageTitles;
 import net.sourceforge.jwbf.mediawiki.actions.util.VersionException;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 
 import org.venipedia.QwikiWiki;
-import org.venipedia.credentials.DatabaseCredentials;
 import org.venipedia.credentials.VenipediaCredentials;
 import org.venipedia.entities.Page;
 
@@ -64,8 +66,12 @@ public class VeniBot {
 		};
 		worker.execute();
 	}
+	
+	public Page getPage(String title){
+		return getPage(title,MediaWiki.NS_MAIN);
+	}
 
-	public Page getPage(String title) {
+	public Page getPage(String title, int namespace) {
 		try {
 			Article a = bot.readContent(title);
 			String body = a.getText();
@@ -77,6 +83,17 @@ public class VeniBot {
 			return new Page(title, "Could not find " + title + " on Venipedia.");
 		}
 
+	}
+	
+	public void upload(Page page){
+		try{
+			SimpleArticle article = new SimpleArticle(page.getTitle());
+			article.setText(page.getBody());
+			PostModifyContent pmc = new PostModifyContent(bot, article);
+			bot.performAction(pmc);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	public Collection<String> listPages(int... namespaces) {
@@ -118,6 +135,11 @@ public class VeniBot {
 			String name = o.toString();
 			deletePage(name);
 		}
+	} 
+	
+	public ImportSpec getImportSpec(String name){
+		return new ImportSpec(getPage(name,116)); // 116 is the number of the DatabaseImport namespace
+		
 	}
 
 	public void deletePage(String name) {

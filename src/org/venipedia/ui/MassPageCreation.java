@@ -1,74 +1,141 @@
 package org.venipedia.ui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JInternalFrame;
-import javax.swing.ImageIcon;
-import java.awt.CardLayout;
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
-import javax.swing.JButton;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.JComboBox;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingWorker;
+
+import org.venipedia.QwikiWiki;
+import org.venipedia.bot.ImportPair;
+import org.venipedia.bot.ImportSpec;
+import org.venipedia.entities.DatabaseTable;
+import org.venipedia.entities.Page;
 
 public class MassPageCreation extends JInternalFrame {
 	private static final long serialVersionUID = -3512602067595201245L;
+	
+	QwikiWiki parent;
+	private JTextField comboBox;
 
 	/**
 	 * Create the frame.
 	 */
-	public MassPageCreation() {
+	public MassPageCreation(QwikiWiki qw) {
+		
+		parent = qw;
+		
 		setTitle("Mass-upload pages");
 		setFrameIcon(new ImageIcon(MassPageCreation.class.getResource("/icons/blogs-stack.png")));
 		setClosable(true);
 		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new CardLayout(0, 0));
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		getContentPane().setLayout(gridBagLayout);
 		
-		JPanel panel = new JPanel();
-		getContentPane().add(panel, "name_178220776614637");
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
+		JLabel lblSelectImportSpecification = new JLabel("Select import specification:");
+		GridBagConstraints gbc_lblSelectImportSpecification = new GridBagConstraints();
+		gbc_lblSelectImportSpecification.gridwidth = 2;
+		gbc_lblSelectImportSpecification.insets = new Insets(0, 0, 5, 0);
+		gbc_lblSelectImportSpecification.gridx = 0;
+		gbc_lblSelectImportSpecification.gridy = 0;
+		getContentPane().add(lblSelectImportSpecification, gbc_lblSelectImportSpecification);
 		
-		JLabel lblSelectUploadTemplate = new JLabel("Select upload specification:");
-		GridBagConstraints gbc_lblSelectUploadTemplate = new GridBagConstraints();
-		gbc_lblSelectUploadTemplate.anchor = GridBagConstraints.EAST;
-		gbc_lblSelectUploadTemplate.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSelectUploadTemplate.gridx = 0;
-		gbc_lblSelectUploadTemplate.gridy = 0;
-		panel.add(lblSelectUploadTemplate, gbc_lblSelectUploadTemplate);
-		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JTextField();
+		comboBox.setColumns(24);
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		gbc_comboBox.gridwidth = 2;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 1;
-		gbc_comboBox.gridy = 0;
-		panel.add(comboBox, gbc_comboBox);
+		gbc_comboBox.gridx = 0;
+		gbc_comboBox.gridy = 1;
+		getContentPane().add(comboBox, gbc_comboBox);
 		
-		JButton btnEdit = new JButton("");
-		btnEdit.setIcon(new ImageIcon(MassPageCreation.class.getResource("/icons/pencil.png")));
-		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
-		gbc_btnEdit.insets = new Insets(0, 0, 5, 0);
-		gbc_btnEdit.gridx = 2;
-		gbc_btnEdit.gridy = 0;
-		panel.add(btnEdit, gbc_btnEdit);
+		JButton btnHelp = new JButton("Help");
+		btnHelp.setIcon(new ImageIcon(MassPageCreation.class.getResource("/icons/question.png")));
+		GridBagConstraints gbc_btnHelp = new GridBagConstraints();
+		gbc_btnHelp.anchor = GridBagConstraints.WEST;
+		gbc_btnHelp.insets = new Insets(0, 0, 0, 5);
+		gbc_btnHelp.gridx = 0;
+		gbc_btnHelp.gridy = 2;
+		getContentPane().add(btnHelp, gbc_btnHelp);
 		
-		JButton btnNext1 = new JButton("Next");
-		btnNext1.setIcon(new ImageIcon(MassPageCreation.class.getResource("/icons/arrow-curve-000-left.png")));
-		GridBagConstraints gbc_btnNext1 = new GridBagConstraints();
-		gbc_btnNext1.gridwidth = 2;
-		gbc_btnNext1.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNext1.anchor = GridBagConstraints.NORTHEAST;
-		gbc_btnNext1.gridx = 1;
-		gbc_btnNext1.gridy = 1;
-		panel.add(btnNext1, gbc_btnNext1);
+		JButton btnUpload = new JButton("Upload");
+		btnUpload.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				upload();
+			}
+		});
+		btnUpload.setIcon(new ImageIcon(MassPageCreation.class.getResource("/icons/upload-cloud.png")));
+		GridBagConstraints gbc_btnUpload = new GridBagConstraints();
+		gbc_btnUpload.gridx = 1;
+		gbc_btnUpload.gridy = 2;
+		getContentPane().add(btnUpload, gbc_btnUpload);
+		
+		pack();
 
 	}
 
+	protected void upload() {
+		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+			protected Void doInBackground() {
+				uploadData();
+				return null;
+			}
+		};
+		worker.execute();
+	}
+	
+	protected void uploadData() {
+		String specName = getComboBox().getText();
+		// first we ask VeniBot to get us our specification file
+		ImportSpec spec = parent.getVeniBot().getImportSpec(specName);
+		
+		String db = spec.getDatabase();
+		String tableName = spec.getTableName();
+		// then we ask BlueBot to go grab the data table
+		DatabaseTable table = parent.getBlueBot().getTable(db, tableName);
+		
+		String template = spec.getTemplate();
+		
+		int totalArticles = table.getRowCount();
+		parent.setMaximum(totalArticles);
+		
+		for(int row=0;row<totalArticles;row++){
+			String title = table.getValuetA(row, spec.getTitle());
+			parent.setStatus("Uploading \""+title+"\" (page "+row+" of "+totalArticles+")...");
+			Page page = new Page(title);
+			page.append("{{");
+			page.append(template);
+			page.append("\n");
+			for(ImportPair pair:spec.getPairs()){
+				page.append("|");
+				page.append(pair.getTemplateField());
+				page.append(" = ");
+				page.append(table.getValuetA(row, pair.getColumn()));
+				page.append("\n");
+			}
+			page.append("}}");
+			parent.getVeniBot().upload(page);
+			parent.setProgress(row);
+		}
+		parent.setProgress(0);
+		parent.setStatus("Done with upload.");
+		
+		dispose();
+	}
+
+	protected JTextField getComboBox() {
+		return comboBox;
+	}
 }
